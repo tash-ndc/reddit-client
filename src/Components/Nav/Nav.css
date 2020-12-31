@@ -1,3 +1,7 @@
+.container {
+    border: 1px black solid;
+}
+
 .heading {
     display: flex;
     align-items: center;
@@ -24,6 +28,7 @@ h1 {
 
 .search input {
     width: 15rem;
+    margin: 7px 0px;
 }
 
 .search button {

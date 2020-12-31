@@ -1,35 +1,54 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Nav from "../Nav/Nav";
 import Subreddits from "../Subreddits/Subreddits";
-import Card from "../Card/Card";
+import Posts from "../Posts/Posts";
 import TEST from "../TEST";
-import axios from 'axios';
+import axios from "axios";
 
 const App = () => {
-  const [subreddits, getSubreddits] = useState([]);
+  const [subreddits, setSubreddits] = useState([]);
+  const [posts, setPosts] = useState('');
   const url = "https://www.reddit.com/";
 
   useEffect(() => {
-    getSubredditInfo();
+    getSubreddits();
+    getSubredditPosts();
   }, []);
 
-  const getSubredditInfo = () => {
+  const getSubreddits = () => {
     axios
-      .get(`${url}r/popular.json`)
+      .get(`${url}subreddits.json`)
       .then((response) => {
-        const subredditList = response.data.data.children.map(el => el.data.subreddit);
-        getSubreddits(subredditList);
+        const subredditList = response.data.data.children.map(
+          (el) => el.data.title
+        );
+        setSubreddits(subredditList);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
+
+  const getSubredditPosts = (subreddit) => {
+    axios
+      .get(`${url}/r/home.json`)
+      .then((response) => {
+        const subredditPosts = response.data.data.children.map(
+          (el) => el.data.title
+        );
+        setPosts(subredditPosts);
       })
       .catch((error) => console.error(`Error: ${error}`));
   };
 
   return (
     <div className="container">
-      <Nav />
-      <Subreddits subreddits={subreddits} />
-      <Card />
+      <Nav className='nav'/>
+      <br />
+      <Subreddits className='subreddits' subreddits={subreddits} />
+      <Posts className='posts' posts={posts}/>
+      <br/>
       <TEST />
+      <br/>
     </div>
   );
 };

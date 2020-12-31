@@ -1,4 +1,5 @@
 import React from "react";
+import './Subreddits.css';
 
 export default function Subreddits(props) {
   // console.log(props.subreddits);
@@ -11,9 +12,7 @@ export default function Subreddits(props) {
       return subreddits.map((subreddit, index) => {
         console.log(subreddit);
         return (
-          <div className="subreddit" key={index}>
-            <h3 className="category">{subreddit}</h3>
-          </div>
+            <h1 className="category" key={index}>{subreddit}</h1>
         );
       });
     } else {
@@ -21,5 +20,10 @@ export default function Subreddits(props) {
     }
   };
 
-  return <div>{displaySubreddits(props)}</div>;
+  return (
+    <div className='subreddit'>
+      <h2>Subreddits</h2>
+      {displaySubreddits(props)}
+    </div>
+  )
 }
