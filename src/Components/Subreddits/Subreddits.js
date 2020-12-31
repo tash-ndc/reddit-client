@@ -1,12 +1,25 @@
 import React from "react";
-// import Reddit from '../reddit';
 
-const Subreddits = () => {
-  return (
-    <div>
-      <h1>subreddit list test</h1>
-    </div>
-  );
-};
+export default function Subreddits(props) {
+  // console.log(props.subreddits);
+  // return(<div>{props.subreddits}</div>)
 
-export default Subreddits;
+  const displaySubreddits = (props) => {
+    const { subreddits } = props;
+
+    if (subreddits.length > 0) {
+      return subreddits.map((subreddit, index) => {
+        console.log(subreddit);
+        return (
+          <div className="subreddit" key={index}>
+            <h3 className="category">{subreddit}</h3>
+          </div>
+        );
+      });
+    } else {
+      return <h3>Loading...</h3>;
+    }
+  };
+
+  return <div>{displaySubreddits(props)}</div>;
+}
